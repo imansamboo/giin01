@@ -1,0 +1,47 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/godlv
+/cmd/godlv/godlv
+
+# Test binary, built with `go test -c`
+*.test
+
+# Code coverage
+*.out
+coverage.txt
+coverage.html
+
+# Delve debugger output
+__debug_bin*
+**/__debug_bin*
+**/__debug*
+
+# Go workspace (if used locally)
+go.work
+go.work.sum
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# VS Code — ignore most, keep shared project config
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
