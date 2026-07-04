@@ -3,14 +3,24 @@ package main
 import (
 	"flag"
 	"log"
+	"net/http"
 	"os"
 
+	"godlv/controller"
 	"godlv/debug"
+	"godlv/service"
 
 	"github.com/gin-gonic/gin"
 )
 
+var (
+	videoController controller.VideoController
+	videoService    service.VideoService
+)
+
 func main() {
+	videoService = service.New()
+	videoController = controller.New(videoService)
 	debugFlag := flag.Bool("debug", false, "enable debug output")
 	pprofAddr := flag.String("pprof", "", "pprof listen address (e.g. :6060)")
 	flag.Parse()
@@ -33,8 +43,17 @@ func main() {
 	}
 
 	server := gin.Default()
-	server.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "OK"})
+	server.GET("/videos", func(c *gin.Context) {
+		videos := videoController.FindAll(c)
+		c.JSON(http.StatusOK, videos)
+	})
+	server.POST("/videos", func(c *gin.Context) {
+		err := videoController.Save(c)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+			return
+		}
+		c.JSON(http.StatusAccepted, gin.H{"message": "Video created successfully"})
 	})
 	server.Run(":8080")
 }
