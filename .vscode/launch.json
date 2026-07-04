@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch godlv",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/cmd/godlv",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "GOTOOLCHAIN": "auto"
+            },
+            "args": []
+        }
+    ]
+}
