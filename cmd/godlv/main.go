@@ -2,23 +2,33 @@ package main
 
 import (
 	"flag"
+	"io"
 	"log"
 	"net/http"
 	"os"
 
 	"godlv/controller"
 	"godlv/debug"
+	"godlv/middleware"
 	"godlv/service"
 
 	"github.com/gin-gonic/gin"
+	gindump "github.com/tpkeeper/gin-dump"
 )
 
 var (
 	videoController controller.VideoController
 	videoService    service.VideoService
+	logfile         *os.File
 )
 
+func setupLogOutput() {
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+}
+
 func main() {
+	setupLogOutput()
 	videoService = service.New()
 	videoController = controller.New(videoService)
 	debugFlag := flag.Bool("debug", false, "enable debug output")
@@ -42,7 +52,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	server := gin.Default()
+	server := gin.New()
+	server.Use(gin.Recovery(), middleware.Logger(), middleware.BasicAuth(), gindump.Dump())
 	server.GET("/videos", func(c *gin.Context) {
 		videos := videoController.FindAll(c)
 		c.JSON(http.StatusOK, videos)
