@@ -1,3 +1,4 @@
+2026/07/07 04:04:44 godlv running
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
@@ -7,5 +8,8 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-127.0.0.1 - [04 Jul 26 16:34 +0330] POST /videos 202 690.9µs 
-127.0.0.1 - [04 Jul 26 16:34 +0330] GET /videos 200 324.003µs 
+2026/07/07 04:04:50 [save] request received from 127.0.0.1
+2026/07/07 04:04:50 [save] binding request body
+2026/07/07 04:04:50 [save] validation failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
+2026/07/07 04:04:50 [save] failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
+127.0.0.1 - [07 Jul 26 04:04 +0330] POST /videos 500 716.86µs 

@@ -24,7 +24,9 @@ var (
 
 func setupLogOutput() {
 	f, _ := os.Create("gin.log")
-	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+	writer := io.MultiWriter(f, os.Stdout)
+	gin.DefaultWriter = writer
+	log.SetOutput(writer)
 }
 
 func main() {
@@ -59,11 +61,14 @@ func main() {
 		c.JSON(http.StatusOK, videos)
 	})
 	server.POST("/videos", func(c *gin.Context) {
+		log.Printf("[save] request received from %s", c.ClientIP())
 		err := videoController.Save(c)
 		if err != nil {
+			log.Printf("[save] failed: %v", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 			return
 		}
+		log.Println("[save] video created successfully")
 		c.JSON(http.StatusAccepted, gin.H{"message": "Video created successfully"})
 	})
 	server.Run(":8080")

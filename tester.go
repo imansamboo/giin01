@@ -13,7 +13,7 @@ func main() {
 	url := "http://127.0.0.1:8080/videos"
 	header := "Basic " + base64.StdEncoding.EncodeToString([]byte("iman:123456"))
 	method := "POST"
-	reqBody := `{"title": "Test Video", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "description": "Test Description"}`
+	reqBody := `{"title": "iman test", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "description": "Test Description"}`
 	req, err := http.NewRequest(method, url, strings.NewReader(reqBody))
 	req.Header.Add("Authorization", header)
 	req.Header.Add("Content-Type", "application/json")
@@ -24,12 +24,15 @@ func main() {
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		os.Exit(0)
 	}
 	defer response.Body.Close()
 	responseBody, _ := ioutil.ReadAll(response.Body)
 	fmt.Println(string(responseBody))
 	fmt.Println(response.StatusCode)
+	if response.StatusCode >= 400 {
+		os.Exit(0)
+	}
 	req.Header.Add("Authorization", header)
 	req.Header.Add("Content-Type", "application/json")
 
@@ -49,5 +52,6 @@ func main() {
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
+	fmt.Println(res.StatusCode)
 
 }

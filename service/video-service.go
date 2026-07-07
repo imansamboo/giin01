@@ -1,6 +1,10 @@
 package service
 
-import "godlv/entity"
+import (
+	"log"
+
+	"godlv/entity"
+)
 
 type VideoService interface {
 	FindAll() ([]entity.Video, error)
@@ -20,6 +24,8 @@ func (service *videoService) FindAll() ([]entity.Video, error) {
 }
 
 func (service *videoService) Save(video entity.Video) (entity.Video, error) {
+	log.Printf("[save] persisting video title=%q (total before=%d)", video.Title, len(service.videos))
 	service.videos = append(service.videos, video)
+	log.Printf("[save] video persisted (total after=%d)", len(service.videos))
 	return video, nil
 }
