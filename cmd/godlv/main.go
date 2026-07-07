@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -33,10 +35,33 @@ func main() {
 	}
 
 	server := gin.Default()
-	server.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "OK"})
-	})
+
+	//http://127.0.0.1:8080?iman=somename
+	server.GET("/", getQueryParams)
+	//http://127.0.0.1:8080/age/23/desc
+	server.GET("/age/:age/:sort", getURLParams)
+	// curl -X POST http://127.0.0.1:8080 -H 'accept: application/json' --raw-data '{"iman":"amir"}'
+	server.POST("/", getRequestBody)
 	server.Run(":8080")
+}
+
+func getQueryParams(c *gin.Context) {
+	fmt.Println(c.Query("iman"))
+	c.JSON(200, gin.H{"message": "OK"})
+}
+
+func getRequestBody(c *gin.Context) {
+	reqBody := c.Request.Body
+	body, _ := ioutil.ReadAll(reqBody)
+	fmt.Println(string(body))
+	c.JSON(200, gin.H{"iman": "req body ok"})
+
+}
+
+func getURLParams(c *gin.Context) {
+	fmt.Println(c.Param("age"))
+	fmt.Println(c.Param("sort"))
+	c.JSON(200, gin.H{"message": "OK"})
 }
 
 func run() error {
