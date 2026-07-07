@@ -8,6 +8,7 @@ import (
 	localValidator "godlv/validator"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -25,6 +26,9 @@ var customValidator *validator.Validate
 func New(service service.VideoService) VideoController {
 	customValidator = validator.New()
 	customValidator.RegisterValidation("happy", localValidator.ValidateHappy)
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("happy", localValidator.ValidateHappy)
+	}
 	return &videoController{
 		videoService: service,
 	}

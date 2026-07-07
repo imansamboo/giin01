@@ -13,7 +13,7 @@ func main() {
 	url := "http://127.0.0.1:8080/videos"
 	header := "Basic " + base64.StdEncoding.EncodeToString([]byte("iman:123456"))
 	method := "POST"
-	reqBody := `{"title": "iman test", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "description": "Test Description"}`
+	reqBody := `{"title": "iman test happy", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "description": "Test Description", "author":{"name": "dsd sdsd", "age":24}}`
 	req, err := http.NewRequest(method, url, strings.NewReader(reqBody))
 	req.Header.Add("Authorization", header)
 	req.Header.Add("Content-Type", "application/json")

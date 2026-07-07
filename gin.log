@@ -1,4 +1,4 @@
-2026/07/07 04:04:44 godlv running
+2026/07/07 04:29:41 godlv running
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
@@ -8,8 +8,32 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-2026/07/07 04:04:50 [save] request received from 127.0.0.1
-2026/07/07 04:04:50 [save] binding request body
-2026/07/07 04:04:50 [save] validation failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
-2026/07/07 04:04:50 [save] failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
-127.0.0.1 - [07 Jul 26 04:04 +0330] POST /videos 500 716.86µs 
+2026/07/07 04:29:50 [save] request received from 127.0.0.1
+2026/07/07 04:29:50 [save] binding request body
+2026/07/07 04:29:50 [save] bind JSON failed: invalid character 'a' after object key:value pair
+2026/07/07 04:29:50 [save] failed: invalid character 'a' after object key:value pair
+[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 500
+127.0.0.1 - [07 Jul 26 04:29 +0330] POST /videos 400 469.008µs 
+2026/07/07 04:30:08 [save] request received from 127.0.0.1
+2026/07/07 04:30:08 [save] binding request body
+2026/07/07 04:30:08 [save] bind JSON failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
+Key: 'Video.Author.Age' Error:Field validation for 'Age' failed on the 'min' tag
+2026/07/07 04:30:08 [save] failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
+Key: 'Video.Author.Age' Error:Field validation for 'Age' failed on the 'min' tag
+[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 500
+127.0.0.1 - [07 Jul 26 04:30 +0330] POST /videos 400 883.609µs 
+2026/07/07 04:30:26 [save] request received from 127.0.0.1
+2026/07/07 04:30:26 [save] binding request body
+2026/07/07 04:30:26 [save] bind JSON failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
+2026/07/07 04:30:26 [save] failed: Key: 'Video.Title' Error:Field validation for 'Title' failed on the 'happy' tag
+[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 500
+127.0.0.1 - [07 Jul 26 04:30 +0330] POST /videos 400 493.121µs 
+2026/07/07 04:30:39 [save] request received from 127.0.0.1
+2026/07/07 04:30:39 [save] binding request body
+2026/07/07 04:30:39 [save] bound video title="iman test happy" url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+2026/07/07 04:30:39 [save] persisting video title="iman test happy" (total before=0)
+2026/07/07 04:30:39 [save] video persisted (total after=1)
+2026/07/07 04:30:39 [save] service saved video title="iman test happy"
+2026/07/07 04:30:39 [save] video created successfully
+127.0.0.1 - [07 Jul 26 04:30 +0330] POST /videos 202 499.249µs 
+127.0.0.1 - [07 Jul 26 04:30 +0330] GET /videos 200 263.869µs 
